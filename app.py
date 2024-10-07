@@ -3,6 +3,9 @@ import requests
 from dotenv import load_dotenv
 import os
 
+# Charger les variables d'environnement
+load_dotenv()
+
 # Initialisation de l'application Flask
 app = Flask(__name__)
 
@@ -32,6 +35,11 @@ def calculer():
     glycémie_cible = float(request.form['glycemie_cible'])
     facteur_sensibilité = float(request.form['facteur_sensibilite'])
 
+    # Vérification si le facteur de sensibilité est égal à 0
+    if facteur_sensibilité == 0:
+        erreur_sensibilite = "Le facteur de sensibilité ne peut pas être égal à 0. Veuillez entrer une valeur valide."
+        return render_template("index.html", erreur_sensibilite=erreur_sensibilite)
+
     # Calcul du Total Daily Dose (TDD) et ratio insuline/glucides
     tdd = 0.55 * poids
     ratio_insuline_glucides = 500 / tdd
@@ -55,8 +63,7 @@ def calculer():
             erreurs.append(f"L'aliment '{aliment}' n'a pas été trouvé dans la base de données.")
             aliments_inconnus.append(aliment)
 
-
-# Calcul de la dose d'insuline si tous les aliments ont été trouvés
+    # Calcul de la dose d'insuline si tous les aliments ont été trouvés
     if not erreurs:
         dose_glucides = glucides_total / ratio_insuline_glucides
         correction_glycémie = (glycémie_actuelle - glycémie_cible) / facteur_sensibilité
@@ -69,4 +76,3 @@ def calculer():
 # Exécution de l'application
 if __name__ == "__main__":
     app.run(debug=True)
-
