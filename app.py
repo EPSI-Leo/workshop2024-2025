@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request
 import requests
+from dotenv import load_dotenv
+import os
 
 # Initialisation de l'application Flask
 app = Flask(__name__)
 
 # Clé API pour CalorieNinjas
-API_KEY = "s39JzMFjO2HToREQHFJxqA==S372TW5UHUCNNV8x"
+API_KEY = os.getenv("API_KEY")
 API_URL = "https://api.calorieninjas.com/v1/nutrition?query="
 
 # Fonction pour interroger l'API CalorieNinjas et obtenir les informations nutritionnelles
