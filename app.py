@@ -1,18 +1,23 @@
 from flask import Flask, render_template, request
+import requests
 
 # Initialisation de l'application Flask
 app = Flask(__name__)
 
-# Base de données simple pour les aliments avec leur teneur en glucides (en grammes pour 100g)
-base_aliments = {
-    "pomme": 12.0,  # 12g de glucides pour 100g de pomme
-    "riz": 28.0,  # 28g de glucides pour 100g de riz
-    "poulet": 0.0,  # 0g de glucides pour 100g de poulet
-    "pain": 50.0,  # 50g de glucides pour 100g de pain
-    "banane": 22.0  # 22g de glucides pour 100g de banane
-}
+# Clé API pour CalorieNinjas
+API_KEY = "s39JzMFjO2HToREQHFJxqA==S372TW5UHUCNNV8x"
+API_URL = "https://api.calorieninjas.com/v1/nutrition?query="
 
-# Page d'accueil avec formulaire
+# Fonction pour interroger l'API CalorieNinjas et obtenir les informations nutritionnelles
+def get_nutrition_info(query):
+    headers = {'X-Api-Key': API_KEY}
+    response = requests.get(API_URL + query, headers=headers)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+
+# Page d'accueil
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -29,14 +34,20 @@ def calculer():
     tdd = 0.55 * poids
     ratio_insuline_glucides = 500 / tdd
 
-    # Calcul du total de glucides en fonction des aliments sélectionnés
+    # Récupération des aliments et quantités saisis par l'utilisateur
     aliments = request.form.getlist('aliments')
     quantites = request.form.getlist('quantites')
     glucides_total = 0.0
+
+    # Calcul du total de glucides en utilisant CalorieNinjas
     for aliment, quantite in zip(aliments, quantites):
-        if aliment in base_aliments:
-            glucides = (base_aliments[aliment] / 100) * float(quantite)
+        query = f"{quantite}g {aliment}"
+        data = get_nutrition_info(query)
+        if data and 'items' in data and len(data['items']) > 0:
+            glucides = data['items'][0]['carbohydrates_total_g']  # Récupérer les glucides
             glucides_total += glucides
+        else:
+            print(f"Aliment '{aliment}' non trouvé ou erreur API.")
 
     # Calcul de la dose d'insuline nécessaire
     dose_glucides = glucides_total / ratio_insuline_glucides

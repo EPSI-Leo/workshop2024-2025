@@ -3,44 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculateur d'Insuline</title>
-    <!-- Intégration du CDN de Tailwind CSS -->
+    <title>GlycoTrack</title>
+    <!-- Intégration de Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-6">
     <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-8">
-        <h1 class="text-2xl font-bold text-center text-blue-600 mb-6">Calculateur d'Insuline pour Diabétiques</h1>
+        <h1 class="text-2xl font-bold text-center text-blue-600 mb-6">Calculateur d'Insuline</h1>
         <form action="/calculer" method="POST" class="space-y-4">
             <div>
                 <label for="poids" class="block text-lg font-semibold">Votre poids (kg) :</label>
-                <input type="number" step="0.1" name="poids" required class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <input type="number" step="0.1" name="poids" required class="w-full p-2 border rounded-md">
             </div>
 
             <div>
                 <label for="glycemie_actuelle" class="block text-lg font-semibold">Glycémie actuelle (mg/dL) :</label>
-                <input type="number" name="glycemie_actuelle" required class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <input type="number" name="glycemie_actuelle" required class="w-full p-2 border rounded-md">
             </div>
 
             <div>
                 <label for="glycemie_cible" class="block text-lg font-semibold">Glycémie cible (mg/dL) :</label>
-                <input type="number" name="glycemie_cible" required class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <input type="number" name="glycemie_cible" required class="w-full p-2 border rounded-md">
             </div>
 
             <div>
                 <label for="facteur_sensibilite" class="block text-lg font-semibold">Facteur de sensibilité (mg/dL par unité) :</label>
-                <input type="number" step="0.1" name="facteur_sensibilite" required class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <input type="number" step="0.1" name="facteur_sensibilite" required class="w-full p-2 border rounded-md">
             </div>
 
-            <h3 class="text-lg font-bold mt-6">Sélectionnez les aliments consommés :</h3>
-            <div class="grid grid-cols-2 gap-4">
-                {% for aliment, glucide in [('pomme', 12.0), ('riz', 28.0), ('poulet', 0.0), ('pain', 50.0), ('banane', 22.0)] %}
+            <h3 class="text-lg font-bold mt-6">Ajoutez les aliments consommés :</h3>
+            <div class="space-y-2">
                 <div class="flex items-center space-x-4">
-                    <input type="checkbox" name="aliments" value="{{ aliment }}" class="w-4 h-4">
-                    <label for="aliments" class="capitalize">{{ aliment }}</label>
-                    <label for="quantites" class="ml-2">Quantité (en g):</label>
+                    <label for="aliments">Nom de l'aliment :</label>
+                    <input type="text" name="aliments" class="w-full p-2 border rounded-md">
+                    <label for="quantites">Quantité (en grammes) :</label>
                     <input type="number" name="quantites" min="0" class="w-16 p-1 border rounded-md">
                 </div>
-                {% endfor %}
             </div>
 
             <button type="submit" class="w-full mt-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700">Calculer</button>
