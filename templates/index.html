@@ -1,15 +1,18 @@
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlycoTrack</title>
+    <title>Calculateur d'Insuline</title>
     <!-- Intégration de Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-6">
     <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-8">
         <h1 class="text-2xl font-bold text-center text-blue-600 mb-6">Calculateur d'Insuline</h1>
+
+        <!-- Formulaire de saisie -->
         <form action="/calculer" method="POST" class="space-y-4">
             <div>
                 <label for="poids" class="block text-lg font-semibold">Votre poids (kg) :</label>
@@ -44,6 +47,19 @@
             <button type="submit" class="w-full mt-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700">Calculer</button>
         </form>
 
+        <!-- Affichage des erreurs -->
+        {% if erreurs %}
+        <div class="mt-6 bg-red-100 text-red-600 p-4 rounded-lg">
+            <h2 class="font-bold text-lg">Erreur :</h2>
+            <ul class="list-disc pl-5">
+                {% for erreur in erreurs %}
+                <li>{{ erreur }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- Affichage des résultats si pas d'erreurs -->
         {% if dose %}
         <div class="mt-8 bg-green-50 p-4 rounded-lg shadow-md">
             <h2 class="text-xl font-bold text-green-600">Résultat :</h2>
@@ -55,3 +71,4 @@
     </div>
 </body>
 </html>
+```

@@ -40,6 +40,8 @@ def calculer():
     aliments = request.form.getlist('aliments')
     quantites = request.form.getlist('quantites')
     glucides_total = 0.0
+    erreurs = []  # Liste pour enregistrer les erreurs
+    aliments_inconnus = []  # Liste des aliments introuvables
 
     # Calcul du total de glucides en utilisant CalorieNinjas
     for aliment, quantite in zip(aliments, quantites):
@@ -49,15 +51,22 @@ def calculer():
             glucides = data['items'][0]['carbohydrates_total_g']  # Récupérer les glucides
             glucides_total += glucides
         else:
-            print(f"Aliment '{aliment}' non trouvé ou erreur API.")
+            # Ajouter un message d'erreur si l'aliment n'est pas trouvé
+            erreurs.append(f"L'aliment '{aliment}' n'a pas été trouvé dans la base de données.")
+            aliments_inconnus.append(aliment)
 
-    # Calcul de la dose d'insuline nécessaire
-    dose_glucides = glucides_total / ratio_insuline_glucides
-    correction_glycémie = (glycémie_actuelle - glycémie_cible) / facteur_sensibilité
-    dose_totale = round(dose_glucides + correction_glycémie, 2)
 
-    return render_template("index.html", dose=dose_totale, ratio=round(ratio_insuline_glucides, 2), glucides_total=glucides_total)
+# Calcul de la dose d'insuline si tous les aliments ont été trouvés
+    if not erreurs:
+        dose_glucides = glucides_total / ratio_insuline_glucides
+        correction_glycémie = (glycémie_actuelle - glycémie_cible) / facteur_sensibilité
+        dose_totale = round(dose_glucides + correction_glycémie, 2)
+        return render_template("index.html", dose=dose_totale, ratio=round(ratio_insuline_glucides, 2), glucides_total=glucides_total)
+    else:
+        # Si des erreurs existent, les afficher sur le front-end
+        return render_template("index.html", erreurs=erreurs, aliments_inconnus=aliments_inconnus)
 
 # Exécution de l'application
 if __name__ == "__main__":
     app.run(debug=True)
+
