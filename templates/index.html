@@ -15,22 +15,22 @@
         <form action="/calculer" method="POST" class="space-y-4">
             <div>
                 <label for="poids" class="block text-lg font-semibold">Votre poids (kg) :</label>
-                <input type="number" step="0.1" name="poids" required class="w-full p-2 border rounded-md">
+                <input type="number" step="0.1" name="poids" min="0" oninput="this.value = Math.abs(this.value)" required class="w-full p-2 border rounded-md">
             </div>
 
             <div>
                 <label for="glycemie_actuelle" class="block text-lg font-semibold">Glycémie actuelle (mg/dL) :</label>
-                <input type="number" name="glycemie_actuelle" required class="w-full p-2 border rounded-md">
+                <input type="number" name="glycemie_actuelle" min="0" oninput="this.value = Math.abs(this.value)" required class="w-full p-2 border rounded-md">
             </div>
 
             <div>
                 <label for="glycemie_cible" class="block text-lg font-semibold">Glycémie cible (mg/dL) :</label>
-                <input type="number" name="glycemie_cible" required class="w-full p-2 border rounded-md">
+                <input type="number" name="glycemie_cible" min="0" oninput="this.value = Math.abs(this.value)" required class="w-full p-2 border rounded-md">
             </div>
 
             <div>
                 <label for="facteur_sensibilite" class="block text-lg font-semibold">Facteur de sensibilité (mg/dL par unité) :</label>
-                <input type="number" step="0.1" name="facteur_sensibilite" required class="w-full p-2 border rounded-md">
+                <input type="number" step="0.1" name="facteur_sensibilite" min="0" oninput="this.value = Math.abs(this.value)" required class="w-full p-2 border rounded-md">
             </div>
 
             <h3 class="text-lg font-bold mt-6">Ajoutez les aliments consommés :</h3>
@@ -39,7 +39,7 @@
                     <label for="aliments">Nom de l'aliment :</label>
                     <input type="text" name="aliments" class="w-full p-2 border rounded-md">
                     <label for="quantites">Quantité (en grammes) :</label>
-                    <input type="number" name="quantites" min="0" class="w-16 p-1 border rounded-md">
+                    <input type="number" name="quantites" min="0" oninput="this.value = Math.abs(this.value)" class="w-16 p-1 border rounded-md">
                 </div>
             </div>
 
