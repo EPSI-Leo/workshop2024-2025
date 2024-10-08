@@ -27,6 +27,11 @@ def get_nutrition_info(query):
 def index():
     return render_template("index.html")
 
+# Nouvelle page 'About'
+@app.route('/about')
+def about():
+    return render_template('About.html')
+
 # Route pour calculer la dose d'insuline
 @app.route('/calculer', methods=['POST'])
 def calculer():

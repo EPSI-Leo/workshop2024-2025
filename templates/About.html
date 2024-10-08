@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur d'Insuline</title>
+    <!-- Intégration de Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+
+<!-- Navbar -->
+<nav class="w-full bg-white shadow-md">
+  <div class="container mx-auto flex flex-wrap items-center justify-between py-4 px-6">
+
+    <!-- Logo / Main Links -->
+    <div class="flex items-center space-x-8">
+      <a href="#" class="text-2xl font-bold text-indigo-600">Sugar Daddy</a>
+      <ul class="flex items-center space-x-6 text-sm font-medium text-gray-800 uppercase">
+          <li><a class="hover:text-indigo-500 transition-colors duration-200" href="{{ url_for('index') }}">Main Page</a></li>
+          <li><a class="hover:text-indigo-500 transition-colors duration-200" href="{{ url_for('about') }}">Notice d'utilisation</a></li>
+      </ul>
+    </div>
+
+    <!-- Social Media Icons -->
+    <div class="flex items-center space-x-6 text-gray-600">
+      <a href="#" class="hover:text-indigo-500 transition-colors duration-200">
+        <i class="fab fa-facebook text-xl"></i>
+      </a>
+      <a href="#" class="hover:text-indigo-500 transition-colors duration-200">
+        <i class="fab fa-instagram text-xl"></i>
+      </a>
+      <a href="#" class="hover:text-indigo-500 transition-colors duration-200">
+        <i class="fab fa-twitter text-xl"></i>
+      </a>
+      <a href="#" class="hover:text-indigo-500 transition-colors duration-200">
+        <i class="fab fa-linkedin text-xl"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<!-- FinNavbar -->
+
+   <!-- Text Header -->
+<header class="w-full container mx-auto">
+    <div class="flex flex-col items-center py-12">
+        <a class="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl animate-bounce animate-fade-in" href="#">
+            Notice d'utilisation
+         </a>
+        <p class="text-lg text-gray-600"></p>
+    </div>
+</header>
+
+<!-- animation -->
+<style>
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Adding the custom animation to Tailwind */
+.animate-fade-in {
+  animation: fadeIn 1.5s ease-out forwards;
+}
+</style>
+
+
+<div class="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Notice d'Utilisation - Calculateur d'Insuline</h2>
+
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-2">Étape 1 : Remplir les Informations Personnelles</h3>
+        <p class="text-gray-600 mb-2">Sur la page principale, vous verrez un formulaire vous demandant les informations suivantes :</p>
+        <ul class="list-disc pl-5 text-gray-600">
+            <li><strong>Poids</strong> (en kilogrammes) : Entrez votre poids actuel.</li>
+            <li><strong>Glycémie Actuelle</strong> (en mg/dL) : Entrez votre glycémie mesurée récemment.</li>
+            <li><strong>Glycémie Cible</strong> (en mg/dL) : Entrez la valeur cible de glycémie à atteindre.</li>
+            <li><strong>Facteur de Sensibilité à l’Insuline</strong> : Indiquez votre facteur de sensibilité (souvent fourni par votre médecin). Cela représente combien de mg/dL votre glycémie baisse par unité d’insuline.</li>
+        </ul>
+    </div>
+
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-2">Étape 2 : Entrer les Aliments Consommés</h3>
+        <p class="text-gray-600 mb-2">Sous les informations personnelles, vous pouvez ajouter les aliments que vous avez consommés et leur quantité :</p>
+        <ul class="list-disc pl-5 text-gray-600">
+            <li><strong>Aliments</strong> : Tapez le nom de chaque aliment que vous avez consommé (par exemple, “pomme”, “riz”, “poulet”).</li>
+            <li><strong>Quantité</strong> : Indiquez la quantité consommée en grammes.</li>
+        </ul>
+        <p class="text-gray-600 mt-2">Exemple : Si vous avez mangé 100g de riz, entrez “riz” dans la colonne des aliments et “100” dans la colonne des quantités.</p>
+    </div>
+
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-2">Étape 3 : Calculer la Dose d’Insuline</h3>
+        <p class="text-gray-600 mb-2">Une fois que vous avez rempli toutes les informations nécessaires (poids, glycémie, aliments), cliquez sur le bouton <strong>Calculer</strong>.</p>
+    </div>
+
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-2">Étape 4 : Résultats</h3>
+        <p class="text-gray-600 mb-2">Le calculateur vous fournira trois informations importantes :</p>
+        <ol class="list-decimal pl-5 text-gray-600">
+            <li><strong>Dose d’Insuline Recommandée</strong> : La quantité d’insuline (en unités) que vous devez administrer pour compenser les glucides consommés et corriger votre glycémie.</li>
+            <li><strong>Ratio Insuline/Glucides</strong> : Le nombre de grammes de glucides que 1 unité d’insuline peut couvrir.</li>
+            <li><strong>Total des Glucides Consommés</strong> : La quantité totale de glucides (en grammes) que vous avez consommée, basée sur les aliments saisis.</li>
+        </ol>
+    </div>
+
+    <div class="mt-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-2">Clause de Non-Responsabilité</h3>
+        <p class="text-gray-600 mb-2">L’utilisation de ce Calculateur d’Insuline est à vos propres risques. Bien que l’application soit conçue pour fournir des estimations basées sur les données que vous entrez, elle ne remplace en aucun cas l’avis médical d’un professionnel de la santé.</p>
+        <p class="text-gray-600 mb-2">Avertissement : Les résultats fournis par cette application sont basés sur les informations que vous avez saisies. Le développeur de l’application ne peut être tenu responsable des conséquences résultant de l’utilisation de ces données ou de la non-conformité à vos recommandations médicales. Veuillez consulter votre médecin ou un professionnel de santé qualifié avant de prendre des décisions concernant votre traitement.</p>
+    </div>
+</div>
+</body>
+</html>

@@ -8,8 +8,64 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-6">
+
+
+<!-- Navbar -->
+<nav class="w-full bg-white shadow-md">
+  <div class="container mx-auto flex flex-wrap items-center justify-between py-4 px-6">
+
+    <!-- Logo / Main Links -->
+    <div class="flex items-center space-x-8">
+      <a href="#" class="text-2xl font-bold text-indigo-600">Sugar Daddy</a>
+      <ul class="flex items-center space-x-6 text-sm font-medium text-gray-800 uppercase">
+          <li><a class="hover:text-indigo-500 transition-colors duration-200" href="{{ url_for('index') }}">Main Page</a></li>
+          <li><a class="hover:text-indigo-500 transition-colors duration-200" href="{{ url_for('about') }}">Notice d'utilisation</a></li>
+      </ul>
+    </div>
+
+    <!-- Social Media Icons -->
+    <div class="flex items-center space-x-6 text-gray-600">
+      <a href="#" class="hover:text-indigo-500 transition-colors duration-200">
+        <i class="fab fa-facebook text-xl"></i>
+      </a>
+      <a href="#" class="hover:text-indigo-500 transition-colors duration-200">
+        <i class="fab fa-instagram text-xl"></i>
+      </a>
+      <a href="#" class="hover:text-indigo-500 transition-colors duration-200">
+        <i class="fab fa-twitter text-xl"></i>
+      </a>
+      <a href="#" class="hover:text-indigo-500 transition-colors duration-200">
+        <i class="fab fa-linkedin text-xl"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+   <!-- Text Header -->
+<header class="w-full container mx-auto">
+    <div class="flex flex-col items-center py-12">
+        <a class="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl animate-bounce animate-fade-in" href="#">
+            Calculateur d'Insuline
+        </a>
+        <p class="text-lg text-gray-600"></p>
+    </div>
+</header>
+
+<!-- animation -->
+<style>
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Adding the custom animation to Tailwind */
+.animate-fade-in {
+  animation: fadeIn 1.5s ease-out forwards;
+}
+</style>
+<!-- FinNavbar -->
+
+
     <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-8">
-        <h1 class="text-2xl font-bold text-center text-blue-600 mb-6">Calculateur d'Insuline</h1>
 
         <!-- Formulaire de saisie -->
         <form action="/calculer" method="POST" class="space-y-4">
